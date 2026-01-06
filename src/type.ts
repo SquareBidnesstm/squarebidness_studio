@@ -1,5 +1,3 @@
-
-
 export interface GeneratedImage {
   url: string;
   prompt: string;
@@ -7,10 +5,10 @@ export interface GeneratedImage {
 }
 
 export enum GenerationStatus {
-  IDLE = 'IDLE',
-  LOADING = 'LOADING',
-  SUCCESS = 'SUCCESS',
-  ERROR = 'ERROR'
+  IDLE = "IDLE",
+  LOADING = "LOADING",
+  SUCCESS = "SUCCESS",
+  ERROR = "ERROR",
 }
 
 export interface BrandConfig {
