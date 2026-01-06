@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { evolveImage } from './services/geminiService';
-import { GenerationStatus, GeneratedImage } from './types';
+import React, { useState, useRef, useEffect } from "react";
+import { evolveImage } from "../services/geminiService";
+import { GenerationStatus, GeneratedImage } from "./types";
 
 const App: React.FC = () => {
   const [baseImage, setBaseImage] = useState<string | null>(null);
