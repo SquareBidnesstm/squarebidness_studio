@@ -5,14 +5,10 @@ export const evolveImage = async (
   const res = await fetch("/api/evolve", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      prompt: userPrompt,
-      baseImage: baseImageBase64
-    })
+    body: JSON.stringify({ prompt: userPrompt, baseImage: baseImageBase64 })
   });
 
   if (!res.ok) {
-    // Try to read a useful error
     let msg = "";
     try {
       const data = await res.json();
