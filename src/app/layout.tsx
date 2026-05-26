@@ -14,7 +14,21 @@ export const metadata: Metadata = {
     "independent films", "culture videos", "Square Bidness Network",
   ],
   applicationName: "SB Studio",
+  manifest: "/site.webmanifest",
   appleWebApp: { capable: true, title: "SB Studio", statusBarStyle: "black-translucent" },
+  icons: {
+    icon: [
+      { url: "/scripts/assets/studio-16.png",  sizes: "16x16",  type: "image/png" },
+      { url: "/scripts/assets/studio-32.png",  sizes: "32x32",  type: "image/png" },
+      { url: "/scripts/assets/studio-48.png",  sizes: "48x48",  type: "image/png" },
+      { url: "/scripts/assets/studio-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/scripts/assets/studio-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [
+      { url: "/scripts/assets/studio-180.png", sizes: "180x180", type: "image/png" },
+    ],
+    shortcut: "/scripts/assets/studio-32.png",
+  },
   openGraph: {
     siteName: "Square Bidness Studio",
     title: "Square Bidness Studio — Original Content",
