@@ -61,10 +61,8 @@ export default async function HomePage({
       }}>
         <div className="wrap" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
           <Link href="/" style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <span style={{
-              fontWeight: 950, fontSize: "1.15rem", letterSpacing: "-0.04em",
-              color: "#fff",
-            }}>SB<span style={{ color: "#e50914" }}>Studio</span></span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/assets/studio-192.png" alt="SB Studio" style={{ height: 40, width: 40, objectFit: "contain" }} />
             <span style={{
               padding: "2px 7px", background: "#1a0000", border: "1px solid #7f0000",
               borderRadius: 999, fontSize: "0.6rem", fontWeight: 900,

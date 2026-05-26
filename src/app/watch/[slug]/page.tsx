@@ -50,8 +50,9 @@ export default async function WatchPage({ params }: { params: Promise<{ slug: st
 
       {/* NAV */}
       <nav style={{ height: 56, display: "flex", alignItems: "center", padding: "0 20px", borderBottom: "1px solid #111", background: "#000", position: "sticky", top: 0, zIndex: 50 }}>
-        <Link href="/" style={{ fontWeight: 950, fontSize: "1.1rem", letterSpacing: "-0.04em" }}>
-          SB<span style={{ color: "#e50914" }}>Studio</span>
+        <Link href="/" style={{ display: "flex", alignItems: "center" }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/assets/studio-192.png" alt="SB Studio" style={{ height: 40, width: 40, objectFit: "contain" }} />
         </Link>
       </nav>
 
