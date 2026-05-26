@@ -18,16 +18,16 @@ export const metadata: Metadata = {
   appleWebApp: { capable: true, title: "SB Studio", statusBarStyle: "black-translucent" },
   icons: {
     icon: [
-      { url: "/scripts/assets/studio-16.png",  sizes: "16x16",  type: "image/png" },
-      { url: "/scripts/assets/studio-32.png",  sizes: "32x32",  type: "image/png" },
-      { url: "/scripts/assets/studio-48.png",  sizes: "48x48",  type: "image/png" },
-      { url: "/scripts/assets/studio-192.png", sizes: "192x192", type: "image/png" },
-      { url: "/scripts/assets/studio-512.png", sizes: "512x512", type: "image/png" },
+      { url: "/assets/studio-16.png",  sizes: "16x16",  type: "image/png" },
+      { url: "/assets/studio-32.png",  sizes: "32x32",  type: "image/png" },
+      { url: "/assets/studio-48.png",  sizes: "48x48",  type: "image/png" },
+      { url: "/assets/studio-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/assets/studio-512.png", sizes: "512x512", type: "image/png" },
     ],
     apple: [
-      { url: "/scripts/assets/studio-180.png", sizes: "180x180", type: "image/png" },
+      { url: "/assets/studio-180.png", sizes: "180x180", type: "image/png" },
     ],
-    shortcut: "/scripts/assets/studio-32.png",
+    shortcut: "/assets/studio-32.png",
   },
   openGraph: {
     siteName: "Square Bidness Studio",
@@ -35,13 +35,13 @@ export const metadata: Metadata = {
     description: "Original short films, culture, and entertainment from Square Bidness.",
     type: "website",
     url: "https://studio.squarebidness.com",
-    images: [{ url: "/studio-og.png", width: 1200, height: 630, alt: "Square Bidness Studio" }],
+    images: [{ url: "/assets/studio-meta-1200x630.jpg", width: 1200, height: 630, alt: "Square Bidness Studio" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Square Bidness Studio",
     description: "Original short films, culture, and entertainment.",
-    images: ["/studio-og.png"],
+    images: ["/assets/studio-meta-1200x630.jpg"],
   },
   alternates: { canonical: "https://studio.squarebidness.com" },
 };
