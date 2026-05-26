@@ -56,11 +56,10 @@ export default function UploadPage() {
         const err = await saveRes.json();
         throw new Error(err.error ?? "Failed to save video");
       }
-      const { slug } = await saveRes.json();
+      await saveRes.json();
 
       setPhase("done");
       setTimeout(() => router.push("/admin"), 1200);
-      _ = slug;
     } catch (err: any) {
       setError(err.message ?? "Upload failed");
       setPhase("error");
@@ -71,9 +70,10 @@ export default function UploadPage() {
     <div style={{ minHeight: "100vh", background: "#000", padding: "0 20px 80px" }}>
       {/* Nav */}
       <nav style={{ height: 56, display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: "1px solid #111", marginBottom: 32 }}>
-        <a href="/admin" style={{ fontWeight: 950, fontSize: "1.1rem", letterSpacing: "-0.04em" }}>
-          SB<span style={{ color: "#e50914" }}>Studio</span>
-          <span style={{ color: "#555", fontWeight: 400, fontSize: "0.85rem", marginLeft: 8 }}>Admin</span>
+        <a href="/admin" style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/assets/studio-192.png" alt="SB Studio" style={{ height: 36, width: 36, objectFit: "contain" }} />
+          <span style={{ color: "#555", fontWeight: 400, fontSize: "0.85rem" }}>Admin</span>
         </a>
         <a href="/admin" style={{ color: "#555", fontSize: "0.85rem" }}>← Back to Dashboard</a>
       </nav>
@@ -184,5 +184,3 @@ export default function UploadPage() {
   );
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-let _: any;

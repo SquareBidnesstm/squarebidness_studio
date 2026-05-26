@@ -1,27 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseServer } from "../../../../../lib/supabase/server";
+import { checkRateLimit } from "../../../../../lib/utils";
 
 export async function POST(
-  _req: NextRequest,
+  req: NextRequest,
   { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
     const { slug } = await params;
 
-    // Optimistic increment — no TOCTOU race since we increment directly
-    const { data: video } = await supabaseServer
-      .from("videos")
-      .select("id, view_count")
-      .eq("slug", slug)
-      .eq("status", "published")
-      .maybeSingle();
+    // Rate limit: 5 view increments per IP per slug per 15 min window
+    const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+    const { limited } = await checkRateLimit(`view:${ip}:${slug}`, 5);
+    if (limited) return NextResponse.json({ ok: false, reason: "rate_limited" });
 
-    if (video) {
-      await supabaseServer
-        .from("videos")
-        .update({ view_count: (video.view_count ?? 0) + 1 })
-        .eq("id", video.id);
-    }
+    // Use atomic RPC to avoid race conditions
+    await supabaseServer.rpc("increment_video_views", { video_slug: slug });
+
     return NextResponse.json({ ok: true });
   } catch {
     return NextResponse.json({ ok: false });
