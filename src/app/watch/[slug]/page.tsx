@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { supabaseServer } from "../../../lib/supabase/server";
-import { getThumbnailUrl, getEmbedUrl, formatDuration, formatViews } from "../../../lib/helpers"
+import { formatDuration, formatViews } from "../../../lib/helpers";
 import { getThumbnailUrl, getEmbedUrl } from "../../../lib/cloudflare";
 import { ViewTracker } from "../../../components/ViewTracker";
 import type { Metadata } from "next";

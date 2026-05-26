@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { isAdminAuthed } from "../../lib/auth";
 import { supabaseServer } from "../../lib/supabase/server";
-import { getThumbnailUrl, formatDuration, formatViews } from "../../lib/helpers";
+import { formatDuration, formatViews } from "../../lib/helpers";
 import { getThumbnailUrl } from "../../lib/cloudflare";
 import { AdminVideoRow } from "./AdminVideoRow";
 

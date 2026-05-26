@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { getThumbnailUrl, formatViews } from "../../lib/helpers"
+import { formatViews } from "../../lib/helpers";
 import { getThumbnailUrl } from "../../lib/cloudflare";
 
 export function AdminVideoRow({ video }: { video: any }) {
