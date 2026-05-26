@@ -35,13 +35,13 @@ export const metadata: Metadata = {
     description: "Original short films, culture, and entertainment from Square Bidness.",
     type: "website",
     url: "https://studio.squarebidness.com",
-    images: [{ url: "/assets/studio-meta-1200x630.jpg", width: 1200, height: 630, alt: "Square Bidness Studio" }],
+    images: [{ url: "/assets/studio-meta.jpg", width: 1200, height: 630, alt: "Square Bidness Studio" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Square Bidness Studio",
     description: "Original short films, culture, and entertainment.",
-    images: ["/assets/studio-meta-1200x630.jpg"],
+    images: ["/assets/studio-meta.jpg"],
   },
   alternates: { canonical: "https://studio.squarebidness.com" },
 };
