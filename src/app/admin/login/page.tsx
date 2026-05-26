@@ -16,9 +16,8 @@ export default async function AdminLoginPage({
     <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", padding: 24, background: "#000" }}>
       <div style={{ width: "100%", maxWidth: 360 }}>
         <div style={{ textAlign: "center", marginBottom: 32 }}>
-          <p style={{ fontWeight: 950, fontSize: "1.4rem", letterSpacing: "-0.04em" }}>
-            SB<span style={{ color: "#e50914" }}>Studio</span>
-          </p>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/assets/studio-192.png" alt="SB Studio" style={{ height: 72, width: 72, objectFit: "contain", margin: "0 auto 12px" }} />
           <p style={{ color: "#555", fontSize: "0.8rem", marginTop: 6, letterSpacing: "0.1em", textTransform: "uppercase" }}>
             Admin Access
           </p>
