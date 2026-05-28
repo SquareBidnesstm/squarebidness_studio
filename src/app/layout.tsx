@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -49,7 +50,19 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <head>
+        <meta property="fb:app_id" content="802680062853443" />
+      </head>
+      <body>
+        <noscript>
+          <img height="1" width="1" style={{ display: "none" }}
+            src="https://www.facebook.com/tr?id=914123084877133&ev=PageView&noscript=1"
+          />
+        </noscript>
+        {children}
+        <Script src="/scripts/meta-pixel.js" strategy="afterInteractive" />
+        <Script src="/scripts/sb-meta-bridge.js" strategy="afterInteractive" />
+      </body>
     </html>
   );
 }
