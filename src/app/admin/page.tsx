@@ -42,6 +42,7 @@ export default async function AdminDashboard() {
           <Link href="/admin/upload" className="btn btn--red" style={{ minHeight: 36, fontSize: "0.85rem", padding: "0 16px" }}>
             + Upload Video
           </Link>
+          <Link href="/admin/creators" style={{ color: "#888", fontSize: "0.82rem" }}>Creators</Link>
           <a href="/api/admin/logout" style={{ color: "#555", fontSize: "0.82rem" }}>Sign Out</a>
         </div>
       </nav>

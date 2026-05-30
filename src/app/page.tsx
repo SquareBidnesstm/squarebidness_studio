@@ -80,6 +80,7 @@ export default async function HomePage({
                 style={{ width: 180, minHeight: 36, padding: "0 12px", fontSize: "0.85rem" }}
               />
             </form>
+            <Link href="/creators" style={{ color: "#888", fontSize: "0.8rem" }}>Creators</Link>
             <Link href="/admin" style={{ color: "#555", fontSize: "0.8rem" }}>Admin</Link>
           </div>
         </div>

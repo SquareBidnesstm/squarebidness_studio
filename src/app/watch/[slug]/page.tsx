@@ -28,7 +28,7 @@ export default async function WatchPage({ params }: { params: Promise<{ slug: st
   const { slug } = await params;
 
   const { data: video } = await supabaseServer
-    .from("videos").select("*").eq("slug", slug).eq("status", "published").maybeSingle();
+    .from("videos").select("*, creators(id, slug, name, photo_url, location)").eq("slug", slug).eq("status", "published").maybeSingle();
 
   if (!video) notFound();
 
@@ -88,6 +88,22 @@ export default async function WatchPage({ params }: { params: Promise<{ slug: st
         <p style={{ color: "#555", fontSize: "0.82rem", marginBottom: 16 }}>
           {views} views · {new Date(video.created_at).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
         </p>
+
+        {/* CREATOR ATTRIBUTION */}
+        {video.creators && (
+          <Link href={`/creator/${(video.creators as any).slug}`} style={{ display: "inline-flex", alignItems: "center", gap: 10, marginBottom: 16, textDecoration: "none" }}>
+            {(video.creators as any).photo_url ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={(video.creators as any).photo_url} alt={(video.creators as any).name} style={{ width: 32, height: 32, borderRadius: "50%", objectFit: "cover" }} />
+            ) : (
+              <div style={{ width: 32, height: 32, borderRadius: "50%", background: "#1a1a1a", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.9rem" }}>🎬</div>
+            )}
+            <div>
+              <p style={{ color: "#f1f1f1", fontSize: "0.85rem", fontWeight: 800, marginBottom: 1 }}>{(video.creators as any).name}</p>
+              {(video.creators as any).location && <p style={{ color: "#555", fontSize: "0.72rem" }}>📍 {(video.creators as any).location}</p>}
+            </div>
+          </Link>
+        )}
 
         {video.description && (
           <div style={{ background: "#0c0c0c", border: "1px solid #1a1a1a", borderRadius: 10, padding: "14px 16px", marginBottom: 20, color: "rgba(255,255,255,.75)", fontSize: "0.92rem", lineHeight: 1.65 }}>
