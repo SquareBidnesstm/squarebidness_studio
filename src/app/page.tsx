@@ -59,32 +59,40 @@ export default async function HomePage({
         borderBottom: "1px solid #1a1a1a",
         height: 60, display: "flex", alignItems: "center", padding: "0 20px",
       }}>
-        <div className="wrap" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
-          <Link href="/" style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        <div className="wrap" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%", gap: 12 }}>
+          <Link href="/" style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/assets/studio-192.png" alt="SB Studio" style={{ height: 40, width: 40, objectFit: "contain" }} />
+            <img src="/assets/studio-192.png" alt="SB Studio" style={{ height: 38, width: 38, objectFit: "contain" }} />
             <span style={{
               padding: "2px 7px", background: "#1a0000", border: "1px solid #7f0000",
               borderRadius: 999, fontSize: "0.6rem", fontWeight: 900,
               letterSpacing: "0.14em", textTransform: "uppercase", color: "#e50914",
-            }}>Network</span>
+              display: "none",
+            }}
+            className="nav-badge"
+            >Network</span>
           </Link>
 
-          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-            <form method="GET" style={{ display: "flex", gap: 8 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12, flex: 1, justifyContent: "flex-end" }}>
+            <form method="GET" style={{ display: "flex", gap: 8, flex: 1, maxWidth: 220 }}>
               <input
                 name="q"
                 defaultValue={q}
                 placeholder="Search..."
                 className="input"
-                style={{ width: 180, minHeight: 36, padding: "0 12px", fontSize: "0.85rem" }}
+                style={{ width: "100%", minHeight: 36, padding: "0 12px", fontSize: "0.85rem" }}
               />
             </form>
-            <Link href="/creators" style={{ color: "#888", fontSize: "0.8rem" }}>Creators</Link>
+            <Link href="/submit" style={{ color: "#e50914", fontSize: "0.8rem", fontWeight: 800, whiteSpace: "nowrap" }}>Submit Music</Link>
+            <Link href="/creators" style={{ color: "#888", fontSize: "0.8rem", whiteSpace: "nowrap" }}>Creators</Link>
             <Link href="/admin" style={{ color: "#555", fontSize: "0.8rem" }}>Admin</Link>
           </div>
         </div>
       </nav>
+      <style>{`
+        @media (min-width: 480px) { .nav-badge { display: inline-block !important; } }
+        @media (max-width: 479px) { .nav-badge { display: none !important; } }
+      `}</style>
 
       {/* ── HERO FEATURE ── */}
       {hero && (
