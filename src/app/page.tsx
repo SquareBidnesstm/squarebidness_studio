@@ -165,6 +165,19 @@ export default async function HomePage({
             })}
           </div>
 
+          {/* ── PROMO CTA (shows on promo filter) ── */}
+          {cat === "promo" && (
+            <div style={{ background: "rgba(229,9,20,.06)", border: "1px solid rgba(229,9,20,.2)", borderRadius: 16, padding: "22px 24px", marginBottom: 28, display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 14 }}>
+              <div>
+                <p style={{ fontWeight: 900, fontSize: "1rem", marginBottom: 4 }}>Want your business on the network?</p>
+                <p style={{ color: "#666", fontSize: "0.85rem" }}>$200 flat — we publish your promo video, you get a permanent shareable link.</p>
+              </div>
+              <a href="/promo" style={{ background: "#e50914", color: "#fff", padding: "11px 22px", borderRadius: 999, fontWeight: 900, fontSize: "0.9rem", textDecoration: "none", whiteSpace: "nowrap" }}>
+                Book a Slot →
+              </a>
+            </div>
+          )}
+
           {/* ── VIDEO GRID ── */}
           {!grid.length ? (
             <div style={{ textAlign: "center", padding: "80px 0", color: "#444" }}>
