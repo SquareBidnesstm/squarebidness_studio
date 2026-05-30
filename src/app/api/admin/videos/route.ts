@@ -16,7 +16,7 @@ export async function GET() {
 // POST — create new video record after Cloudflare upload
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const { title, description, category, cf_video_id, duration_seconds, tags, custom_slug } = body;
+  const { title, description, category, cf_video_id, duration_seconds, tags, custom_slug, access } = body;
 
   if (!title || !cf_video_id) {
     return NextResponse.json({ error: "title and cf_video_id required" }, { status: 400 });
@@ -33,6 +33,7 @@ export async function POST(req: NextRequest) {
       cf_video_id, cf_thumbnail_url,
       duration_seconds: duration_seconds || null,
       tags: tags || [],
+      access: access || "free",
       status: "draft",
     })
     .select("id, slug")

@@ -13,6 +13,7 @@ export default function UploadPage() {
   const [category, setCategory] = useState("shorts");
   const [tags, setTags] = useState("");
   const [customSlug, setCustomSlug] = useState("");
+  const [access, setAccess] = useState("free");
   const [phase, setPhase] = useState<"idle"|"uploading"|"saving"|"done"|"error">("idle");
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState("");
@@ -50,6 +51,7 @@ export default function UploadPage() {
           category, cf_video_id: uid,
           tags: tags.split(",").map(t => t.trim()).filter(Boolean),
           custom_slug: customSlug.trim() || null,
+          access: access || "free",
         }),
       });
       if (!saveRes.ok) {
@@ -168,6 +170,14 @@ export default function UploadPage() {
           <div className="form-group">
             <label className="label">Tags (comma separated)</label>
             <input className="input" value={tags} onChange={e => setTags(e.target.value)} placeholder="louisiana, culture, short film" />
+          </div>
+
+          <div className="form-group">
+            <label className="label">Access</label>
+            <select className="input" value={access} onChange={e => setAccess(e.target.value)}>
+              <option value="free">Free — anyone can watch</option>
+              <option value="premium">Premium — subscribers only</option>
+            </select>
           </div>
 
           <button

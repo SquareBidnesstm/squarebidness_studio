@@ -4,6 +4,8 @@ import { supabaseServer } from "../../../lib/supabase/server";
 import { formatDuration, formatViews } from "../../../lib/helpers";
 import { getThumbnailUrl, getEmbedUrl } from "../../../lib/cloudflare";
 import { ViewTracker } from "../../../components/ViewTracker";
+import { PremiumGate } from "../../../components/PremiumGate";
+import { EmbedCopy } from "../../../components/EmbedCopy";
 import type { Metadata } from "next";
 
 export const revalidate = 60;
@@ -43,6 +45,9 @@ export default async function WatchPage({ params }: { params: Promise<{ slug: st
   const dur = video.duration_seconds ? formatDuration(video.duration_seconds) : null;
   const views = formatViews(video.view_count ?? 0);
   const catLabel = video.category ? video.category.charAt(0).toUpperCase() + video.category.slice(1) : null;
+  const isPremium = video.access && video.access !== "free";
+  const base = process.env.NEXT_PUBLIC_APP_URL || "https://studio.squarebidness.com";
+  const embedCode = `<iframe src="${base}/embed/${slug}" width="560" height="315" frameborder="0" allowfullscreen></iframe>`;
 
   return (
     <div style={{ minHeight: "100vh", background: "#000" }}>
@@ -57,20 +62,24 @@ export default async function WatchPage({ params }: { params: Promise<{ slug: st
       </nav>
 
       <main style={{ maxWidth: 1100, margin: "0 auto", padding: "28px 20px 80px" }}>
-        {/* PLAYER */}
-        <div style={{ position: "relative", paddingTop: "56.25%", background: "#050505", borderRadius: 12, overflow: "hidden", marginBottom: 20 }}>
-          <iframe
-            src={`${embedUrl}?autoplay=true&controls=true&muted=false&loop=false`}
-            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none" }}
-            allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture"
-            allowFullScreen
-          />
-        </div>
+        {/* PLAYER or PAYWALL */}
+        {isPremium ? (
+          <PremiumGate slug={slug} title={video.title} thumbnail={video.cf_thumbnail_url || getThumbnailUrl(video.cf_video_id)} embedUrl={embedUrl} />
+        ) : (
+          <div style={{ position: "relative", paddingTop: "56.25%", background: "#050505", borderRadius: 12, overflow: "hidden", marginBottom: 20 }}>
+            <iframe
+              src={`${embedUrl}?autoplay=true&controls=true&muted=false&loop=false`}
+              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none" }}
+              allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+        )}
 
         {/* META */}
         {catLabel && (
-          <p style={{ color: "#e50914", fontSize: "0.7rem", fontWeight: 900, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 6 }}>
-            {catLabel}{dur && ` · ${dur}`}
+          <p style={{ color: isPremium ? "#f59e0b" : "#e50914", fontSize: "0.7rem", fontWeight: 900, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 6 }}>
+            {isPremium && "★ PREMIUM · "}{catLabel}{dur && ` · ${dur}`}
           </p>
         )}
         <h1 style={{ fontSize: "clamp(1.3rem, 3vw, 2rem)", fontWeight: 950, letterSpacing: "-0.03em", marginBottom: 6 }}>
@@ -81,9 +90,14 @@ export default async function WatchPage({ params }: { params: Promise<{ slug: st
         </p>
 
         {video.description && (
-          <div style={{ background: "#0c0c0c", border: "1px solid #1a1a1a", borderRadius: 10, padding: "14px 16px", marginBottom: 32, color: "rgba(255,255,255,.75)", fontSize: "0.92rem", lineHeight: 1.65 }}>
+          <div style={{ background: "#0c0c0c", border: "1px solid #1a1a1a", borderRadius: 10, padding: "14px 16px", marginBottom: 20, color: "rgba(255,255,255,.75)", fontSize: "0.92rem", lineHeight: 1.65 }}>
             {video.description}
           </div>
+        )}
+
+        {/* EMBED CODE (free videos only) */}
+        {!isPremium && (
+          <EmbedCopy code={embedCode} />
         )}
 
         {/* RELATED */}
