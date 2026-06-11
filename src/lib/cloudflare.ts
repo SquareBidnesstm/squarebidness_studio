@@ -18,11 +18,6 @@ export async function createDirectUploadURL(maxDurationSeconds = 3600): Promise<
       maxDurationSeconds,
       expiry,
       requireSignedURLs: false,
-      allowedOrigins: [
-        "studio.squarebidness.com",
-        "localhost:3000",
-        "*.vercel.app",
-      ],
     }),
   });
 
