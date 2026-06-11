@@ -33,17 +33,17 @@ export default function UploadPage() {
       }
       const { uid, uploadURL } = await urlRes.json();
 
-      // 2. Upload via TUS (resumable, handles CORS on mobile)
+      // 2. Upload via TUS — uploadUrl = pre-created Cloudflare URL, send PATCH chunks directly
       await new Promise<void>((resolve, reject) => {
         const upload = new tus.Upload(file, {
-          endpoint: uploadURL,
+          uploadUrl: uploadURL,
           retryDelays: [0, 1000, 3000],
           metadata: { name: file.name, filetype: file.type },
           onProgress(bytesUploaded, bytesTotal) {
             setProgress(Math.round((bytesUploaded / bytesTotal) * 100));
           },
           onSuccess() { resolve(); },
-          onError(err) { reject(err); },
+          onError(err) { reject(new Error(String(err))); },
         });
         upload.start();
       });
