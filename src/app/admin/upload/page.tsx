@@ -1,6 +1,7 @@
 "use client";
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
+import * as tus from "tus-js-client";
 
 const CATEGORIES = ["shorts","culture","music","events","comedy","documentary","promo","other"];
 
@@ -32,14 +33,20 @@ export default function UploadPage() {
       }
       const { uid, uploadURL } = await urlRes.json();
 
-      // 2. Upload file directly to Cloudflare
-      const formData = new FormData();
-      formData.append("file", file);
-      const uploadRes = await fetch(uploadURL, { method: "POST", body: formData });
-      if (!uploadRes.ok) {
-        const errText = await uploadRes.text().catch(() => "");
-        throw new Error(`Upload failed (${uploadRes.status}): ${errText}`);
-      }
+      // 2. Upload via TUS (resumable, handles CORS on mobile)
+      await new Promise<void>((resolve, reject) => {
+        const upload = new tus.Upload(file, {
+          endpoint: uploadURL,
+          retryDelays: [0, 1000, 3000],
+          metadata: { name: file.name, filetype: file.type },
+          onProgress(bytesUploaded, bytesTotal) {
+            setProgress(Math.round((bytesUploaded / bytesTotal) * 100));
+          },
+          onSuccess() { resolve(); },
+          onError(err) { reject(err); },
+        });
+        upload.start();
+      });
 
       // 3. Save metadata to Supabase
       setPhase("saving");
