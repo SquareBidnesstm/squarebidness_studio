@@ -34,14 +34,16 @@ export default function UploadPage() {
 
       // 2. Upload file directly to Cloudflare via XHR (for progress tracking)
       await new Promise<void>((resolve, reject) => {
+        const formData = new FormData();
+        formData.append("file", file);
         const xhr = new XMLHttpRequest();
-        xhr.open("PUT", uploadURL);
+        xhr.open("POST", uploadURL);
         xhr.upload.onprogress = (e) => {
           if (e.lengthComputable) setProgress(Math.round((e.loaded / e.total) * 100));
         };
         xhr.onload = () => (xhr.status < 300 ? resolve() : reject(new Error(`Upload failed: ${xhr.status}`)));
         xhr.onerror = () => reject(new Error("Upload network error"));
-        xhr.send(file);
+        xhr.send(formData);
       });
 
       // 3. Save metadata to Supabase
