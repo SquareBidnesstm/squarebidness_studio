@@ -28,7 +28,7 @@ export default async function WatchPage({ params }: { params: Promise<{ slug: st
   const { slug } = await params;
 
   const { data: video } = await supabaseServer
-    .from("videos").select("*, creators(id, slug, name, photo_url, location)").eq("slug", slug).eq("status", "published").maybeSingle();
+    .from("videos").select("*").eq("slug", slug).eq("status", "published").maybeSingle();
 
   if (!video) notFound();
 
