@@ -32,6 +32,10 @@ export default async function WatchPage({ params }: { params: Promise<{ slug: st
 
   if (!video) notFound();
 
+  const { data: creator } = video.creator_id
+    ? await supabaseServer.from("creators").select("id, slug, name, photo_url, location").eq("id", video.creator_id).maybeSingle()
+    : { data: null };
+
   const { data: related } = await supabaseServer
     .from("videos")
     .select("id, slug, title, cf_video_id, cf_thumbnail_url, duration_seconds, view_count")
@@ -90,17 +94,17 @@ export default async function WatchPage({ params }: { params: Promise<{ slug: st
         </p>
 
         {/* CREATOR ATTRIBUTION */}
-        {video.creators && (
-          <Link href={`/creator/${(video.creators as any).slug}`} style={{ display: "inline-flex", alignItems: "center", gap: 10, marginBottom: 16, textDecoration: "none" }}>
-            {(video.creators as any).photo_url ? (
+        {creator && (
+          <Link href={`/creator/${creator.slug}`} style={{ display: "inline-flex", alignItems: "center", gap: 10, marginBottom: 16, textDecoration: "none" }}>
+            {creator.photo_url ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={(video.creators as any).photo_url} alt={(video.creators as any).name} style={{ width: 32, height: 32, borderRadius: "50%", objectFit: "cover" }} />
+              <img src={creator.photo_url} alt={creator.name} style={{ width: 32, height: 32, borderRadius: "50%", objectFit: "cover" }} />
             ) : (
               <div style={{ width: 32, height: 32, borderRadius: "50%", background: "#1a1a1a", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.9rem" }}>🎬</div>
             )}
             <div>
-              <p style={{ color: "#f1f1f1", fontSize: "0.85rem", fontWeight: 800, marginBottom: 1 }}>{(video.creators as any).name}</p>
-              {(video.creators as any).location && <p style={{ color: "#555", fontSize: "0.72rem" }}>📍 {(video.creators as any).location}</p>}
+              <p style={{ color: "#f1f1f1", fontSize: "0.85rem", fontWeight: 800, marginBottom: 1 }}>{creator.name}</p>
+              {creator.location && <p style={{ color: "#555", fontSize: "0.72rem" }}>📍 {creator.location}</p>}
             </div>
           </Link>
         )}
