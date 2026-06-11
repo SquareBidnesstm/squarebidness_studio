@@ -30,16 +30,27 @@ export default async function AdminDashboard() {
 
   return (
     <div style={{ minHeight: "100vh", background: "#000", padding: "0 20px 80px" }}>
+      <style>{`
+        .admin-nav { display: flex; flex-direction: column; border-bottom: 1px solid #111; margin-bottom: 32px; padding: 10px 0; gap: 10px; }
+        .admin-nav-top { display: flex; align-items: center; justify-content: space-between; }
+        .admin-nav-links { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+        @media (min-width: 640px) {
+          .admin-nav { flex-direction: row; align-items: center; justify-content: space-between; height: 56px; padding: 0; gap: 0; }
+          .admin-nav-top { flex: 0 0 auto; }
+        }
+      `}</style>
       {/* NAV */}
-      <nav style={{ height: 56, display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: "1px solid #111", marginBottom: 32 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <Link href="/" style={{ fontWeight: 950, fontSize: "1.1rem", letterSpacing: "-0.04em" }}>
-            SB<span style={{ color: "#e50914" }}>Studio</span>
-          </Link>
-          <span style={{ padding: "2px 8px", background: "#1a0000", border: "1px solid #7f0000", borderRadius: 999, color: "#e50914", fontSize: "0.6rem", fontWeight: 900, letterSpacing: "0.12em", textTransform: "uppercase" }}>Admin</span>
+      <nav className="admin-nav">
+        <div className="admin-nav-top">
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <Link href="/" style={{ fontWeight: 950, fontSize: "1.1rem", letterSpacing: "-0.04em" }}>
+              SB<span style={{ color: "#e50914" }}>Studio</span>
+            </Link>
+            <span style={{ padding: "2px 8px", background: "#1a0000", border: "1px solid #7f0000", borderRadius: 999, color: "#e50914", fontSize: "0.6rem", fontWeight: 900, letterSpacing: "0.12em", textTransform: "uppercase" }}>Admin</span>
+          </div>
         </div>
-        <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-          <Link href="/admin/upload" className="btn btn--red" style={{ minHeight: 36, fontSize: "0.85rem", padding: "0 16px" }}>
+        <div className="admin-nav-links">
+          <Link href="/admin/upload" className="btn btn--red" style={{ minHeight: 34, fontSize: "0.82rem", padding: "0 14px" }}>
             + Upload Video
           </Link>
           <Link href="/admin/creators" style={{ color: "#888", fontSize: "0.82rem" }}>Creators</Link>
