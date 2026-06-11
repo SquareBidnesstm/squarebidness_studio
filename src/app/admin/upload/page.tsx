@@ -26,7 +26,10 @@ export default function UploadPage() {
     try {
       // 1. Get Cloudflare direct upload URL
       const urlRes = await fetch("/api/admin/upload-url", { method: "POST" });
-      if (!urlRes.ok) throw new Error("Failed to get upload URL");
+      if (!urlRes.ok) {
+        const errData = await urlRes.json().catch(() => ({}));
+        throw new Error(errData.error ?? "Failed to get upload URL");
+      }
       const { uid, uploadURL } = await urlRes.json();
 
       // 2. Upload file directly to Cloudflare via XHR (for progress tracking)
