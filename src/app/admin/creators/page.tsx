@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-
+ 
 interface Creator {
   id: string; slug: string; name: string; bio?: string;
   location?: string; photo_url?: string; instagram?: string;
